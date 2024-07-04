@@ -140,7 +140,7 @@ void renderBeams(int time, struct Player *p){
   for(int i = 0; i < ENEMY_CAP; i ++){
     if((p->xPos + CHARACTER_W / 2) - (ENEMIES[i].xPos + ENEMY_W / 2)  < 45 && 
        (p->xPos + CHARACTER_W / 2) - (ENEMIES[i].xPos + ENEMY_W / 2)  > -45){
-      if(shootLaser(ENEMIES[i], time)){
+      if(shootBeam(ENEMIES[i], time)){
         ENEMIES[i].lastBeam = time;
       }
     }
@@ -150,7 +150,7 @@ void renderBeams(int time, struct Player *p){
       DrawRectangle(BEAMS[i].xPos, BEAMS[i].yPos, BEAM_W, BEAM_H, RED);
     }
   }
-  moveLasers();
+  moveBeams();
 }
 
 

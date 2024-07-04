@@ -2,7 +2,7 @@
 
 #include "constants.h"
 
-// Player struct to keep track of the state of the character
+/// @brief Player struct to keep track of the state of the character
 struct Player {
   double xPos;
   double yPos;
@@ -12,7 +12,7 @@ struct Player {
   int lastBulletTime;
 };
 
-// Bullet struct to keep track of the fired bullets
+/// @brief Bullet struct to keep track of the fired bullets
 struct Bullet {
   double xPos;
   double yPos;
@@ -24,6 +24,7 @@ struct Bullet BULLETS[MAX_BULLETS];
 
 // Character's three lives
 bool LIVES[3];
+
 
 /// @brief Initilizes a player character with specific values
 /// @param p Player to initialize

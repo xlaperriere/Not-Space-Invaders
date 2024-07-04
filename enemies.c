@@ -5,7 +5,7 @@
 
 #include "constants.h"
 
-// Enemy struct. Used to keep track of the state of enemies
+/// @brief Enemy struct to keep track of enemies
 struct Enemy {
   double xPos;
   double yPos;
@@ -14,29 +14,31 @@ struct Enemy {
   int lastBeam;
 };
 
+/// @brief Beam struct to keep track of fire beams by enemies
 struct Beam {
   double xPos;
   double yPos;
   bool alive;
 };
 
+// Number of active beams
 int activeBeams = 0;
 
+// Static array to store the enemy beams
 struct Beam BEAMS[ENEMY_BEAM_CAP];
 
-// Static array of enemies to keep track of all of them
+// Static array of enemies to store and keep track of all of them
 struct Enemy ENEMIES[ENEMY_CAP];
 
 // Util function that generates a random int from 0 to max
 // Dont know if i will use it yet
 int generateRandomInt(int max) {
-
   int randomNumber = rand() % (max + 1);
   return randomNumber;
 }
 
-// Generates random values for type and xPos for a new enemy and returns the
-// latter
+
+/// @brief Generate a new enemy at the right position with right values
 struct Enemy generateEnemy(int i) {
   struct Enemy newEnemy;
 
@@ -50,27 +52,39 @@ struct Enemy generateEnemy(int i) {
   return newEnemy;
 }
 
-// Populates the static array enemies using the random generation
+
+/// @brief Populate the ENEMIES array used on game start and when refilling the array
 void populateEnemyArray() {
   for (int i = 0; i < ENEMY_CAP; i++) {
     ENEMIES[i] = generateEnemy(i);
   }
 }
 
+
 // ###########################################
 // #             ENEMY ATTACKS               #
 // ###########################################
 
-bool canShootLaser(struct Enemy e, int time) {
+
+/// @brief Checks if an enemy can shoot a beam
+/// @param e The enemy in question
+/// @param time Time at wich it would shoot
+/// @return True if it can shoot
+bool canShootBeam(struct Enemy e, int time) {
   if(e.alive && time - e.lastBeam > 1){
     return true;
   }
   return false;
 }
 
-bool shootLaser(struct Enemy e, int time){
+
+/// @brief Shoots a beam if canShootBeam returns true
+/// @param e Enemy shooting the beam
+/// @param time Time of the shot
+/// @return If a beam was fired
+bool shootBeam(struct Enemy e, int time){
   //cant shoot?
-  if(!canShootLaser(e, time)){ 
+  if(!canShootBeam(e, time)){ 
     return false; 
   } else {
     struct Beam beam;
@@ -93,7 +107,9 @@ bool shootLaser(struct Enemy e, int time){
   }
 }
 
-void moveLasers(){
+
+/// @brief Moves the beams that are alive
+void moveBeams(){
   for(int i = 0; i < ENEMY_BEAM_CAP; i++){
     
     BEAMS[i].yPos += 6;
