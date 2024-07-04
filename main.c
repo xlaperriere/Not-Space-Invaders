@@ -216,7 +216,7 @@ void newGame(struct Player *p, int *score, float *initTime, float *currTime, int
 }
 
 
-// Main game loop in main :
+
 int main(void) {
   InitWindow(WIDTH, HEIGHT, "The Game");
   srand(time(NULL));
@@ -241,7 +241,7 @@ int main(void) {
   Texture2D heart = LoadTextureFromImage(lifeImage);
   UnloadImage(lifeImage);
 
-  // Init player
+  // Initialisation of player character
   struct Player player1;
 
   // Keep track of the score and enemies
@@ -250,22 +250,21 @@ int main(void) {
 
   // Spaceship sheet has 4 orientations, each 1/4 of image width
   // see ressources/spaceship_sheet_small.png.
+  // We chose only the facing up orientation.
   float updatedCharW = character.width * 0.25f;
   float updatedCharH = character.height * 1.0f;
 
+  // Time variables for display and game state tracking
   float initialTime = GetTime();
   float currTime = 0.0f;
   int displayTime = 0;
-
   float timeOfEnd = 0.0f;
-  int timeDelayForNewGame = 5;
 
   newGame(&player1, &score, &initialTime, &currTime, displayTime, enemiesAlive);
 
   SetTargetFPS(60);
   while (!WindowShouldClose()) {
     currTime = GetTime();
-    //printf("%f\n", currTime);
     displayTime = (int)( currTime - initialTime);
 
     keyboardInputs(&player1, displayTime); // Check for inputs
@@ -303,7 +302,7 @@ int main(void) {
         DrawTexture(backgroundTexture, 0, 0, WHITE);
         DrawText(TextFormat("GAME OVER"), WIDTH / 2 - 170, HEIGHT / 2 - 30, 60, RED);
         DrawText(TextFormat("Score : %d", score), 15, 760, 20, RED);
-        if(currTime - timeOfEnd > 5){
+        if(currTime - timeOfEnd > GAME_END_TIMER){
           newGame(&player1, &score, &initialTime, &currTime, displayTime, enemiesAlive);
         }
       }

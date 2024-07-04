@@ -12,19 +12,21 @@ struct Player {
   int lastBulletTime;
 };
 
-// Bullet struct to keep track of its state
+// Bullet struct to keep track of the fired bullets
 struct Bullet {
   double xPos;
   double yPos;
   bool isAlive;
 };
 
-// Static array of bullets to keep track of them
+// Static array of bullets to keep track
 struct Bullet BULLETS[MAX_BULLETS];
 
+// Character's three lives
 bool LIVES[3];
 
-// Initialisation function of the player (character)
+/// @brief Initilizes a player character with specific values
+/// @param p Player to initialize
 void initPlayer(struct Player *p) {
   p->xPos = INITIAL_X;
   p->yPos = INITIAL_Y;
@@ -41,25 +43,18 @@ void initPlayer(struct Player *p) {
 //         Movement functions
 // ###################################
 
+
+/// @brief Move the player characer right
+/// @param p Player character
 void moveRight(struct Player *p) {
   p->xPos += 6;
 }
 
+
+/// @brief Move the player characer left
+/// @param p Player character
 void moveLeft(struct Player *p) {
   p->xPos -= 6;
-}
-
-void moveUp(struct Player *p) {
-  p->yPos -= 4;
-}
-
-void moveDown(struct Player *p) {
-  p->yPos += 4;
-}
-
-void resetPosition(struct Player *p) {
-  p->xPos = INITIAL_X;
-  p->yPos = INITIAL_Y;
 }
 
 
@@ -67,7 +62,10 @@ void resetPosition(struct Player *p) {
 //            Bullet functions
 // #######################################
 
-// Shoot bullets
+
+/// @brief Shoots a bullet from player characer position (if possible)
+/// @param p Player character
+/// @param time Time at wich the bullet is fired
 void shootBullet(struct Player *p, int time) {
   
   if(time - p->lastBulletTime > 1){
@@ -89,7 +87,8 @@ void shootBullet(struct Player *p, int time) {
   
 }
 
-// Bullet movement at each frame
+
+/// @brief Move the bullets from the BULLETS array if they are alive
 void moveBullets() {
   for (int i = 0; i < MAX_BULLETS; i++) {
     BULLETS[i].yPos -= 8;

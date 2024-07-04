@@ -33,3 +33,4 @@
 #define WIDTH 1000
 #define HEIGHT 800
 #define LIVES_POSITION 740
+#define GAME_END_TIMER 5
